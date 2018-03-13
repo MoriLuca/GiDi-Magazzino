@@ -13,6 +13,12 @@ namespace DB
             Database.EnsureCreated();// Crea il database se non esiste
 
         }
+        public MagazzinoContext()
+        {
+            //Database.EnsureDeleted();// Se esiste elimina il database
+            Database.EnsureCreated();// Crea il database se non esiste
+
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
