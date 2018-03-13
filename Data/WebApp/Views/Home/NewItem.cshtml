@@ -1,0 +1,27 @@
+﻿@model Data.Prodotto_Base
+
+@{
+    ViewData["Title"] = "About";
+}
+
+    <div class="ui-widget">
+        <label for="tags">Tags: </label>
+        <input id="tags">
+    </div>
+
+    @if (@ViewData["ex"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> @ViewData["ex"]
+        </div>
+    }
+
+
+    @using (Html.BeginForm("NewItem", "Home", FormMethod.Post))
+    {
+        @Html.EditorForModel()
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+
