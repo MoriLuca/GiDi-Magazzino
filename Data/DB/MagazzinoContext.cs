@@ -6,6 +6,8 @@ namespace DB
     public class MagazzinoContext : DbContext
     {
         public DbSet<Prodotto> Prodotti { get; set; }
+        public DbSet<Storico> Storici { get; set; }
+        public DbSet<Produttore> Produttori { get; set; }
 
         public MagazzinoContext(DbContextOptions<MagazzinoContext> options) : base(options)
         {
@@ -23,7 +25,7 @@ namespace DB
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Prodotto>()
-                .HasIndex(i => i.CodiceArticolo)
+                .HasIndex(i => new { i.CodiceArticolo, i.ProduttoreId} )
                 .IsUnique();
         }
 
