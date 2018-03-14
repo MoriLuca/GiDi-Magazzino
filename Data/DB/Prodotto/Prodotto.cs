@@ -6,14 +6,14 @@ using DBUser;
 
 namespace DB
 {
-    public class Prodotto : DBUser.IProdotto
+    public class Prodotto 
     {
         public int Id { get; set; }
         public string CodiceArticolo { get; set; }
         public int ProduttoreId { get; set; }
-        public IProduttore Produttore { get; set; }
+        public Produttore Produttore { get; set; }
         public Decimal PrezzoAcquisto { get; set; }
         public Decimal PrezzoVendita { get; set; }
-        public List<IStorico> Storici { get; set; }
+        public List<Storico> Storici { get; set; }
     }
 }

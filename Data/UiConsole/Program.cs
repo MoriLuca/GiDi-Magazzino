@@ -16,105 +16,51 @@ namespace UiConsole
         static string ricercaUltimoProduttore;
         static string ricercaUltimoProdotto;
 
-        static List<DBUser.IProduttore> produttori = new List<DBUser.IProduttore>();
-        static List<DB.Prodotto> prodotti = new List<DB.Prodotto>();
-        static DBUser.IProduttore produttore = new DB.Produttore();
+        static List<DB.Produttore> _produttori = new List<DB.Produttore>();
+        static List<DB.Prodotto> _prodotti = new List<DB.Prodotto>();
+        static DB.Produttore _produttore = new DB.Produttore();
+        static DB.Prodotto _prodotto = new DB.Prodotto();
+        static Stage stage = Stage.SelezioneProduttore;
+        
+
+        private enum Stage
+        {
+            SelezioneProduttore, 
+            MenuProdotti
+        }
         #endregion
 
         static void Main(string[] args)
         {
-                SelezioneProduttore();
-                string codiceArticolo = "rt4585";
-                string nomeProduttore = "Delta";
-                //Se trovo il prodotto, conosco gia il produttore, quindi posso creare lo storico
-                DBUser.IProdotto prodotto = ResearchProdotto(codiceArticolo);
-                DBUser.IProduttore produttore = ResearchProduttore(nomeProduttore);
-
-                //List<DB.Storico> storici = context.Storici.Include(i=>i.Prodotto).Include(i=>i.Prodotto.Produttore).ToList();
-
-
-                //if (prodotto != null)
-                //{
-                //    DB.Storico st = new DB.Storico()
-                //    {
-                //        DataInserimento = DateTime.Now,
-                //        Scopo = DB.Scopo.InternoGiDi,
-                //        Stato = DB.Stato.Nuovo,
-                //        ProdottoId = prodotto.Id
-                //    };
-                //    //creo il report storico
-                //    context.Storici.Add(st);
-                //    context.SaveChanges();
-                //}
-
-
-
-
-                ////Se non conosco il prodotto, ma conosco il produttore 
-                //else if (prodotto == null && produttore != null)
-                //{
-                //    //salvo il nuovo prodotto e poi procedo alla creazione dello storico
-                //    prodotto = new DB.Prodotto
-                //    {
-                //        Id = 0,
-                //        CodiceArticolo = codiceArticolo,
-                //        ProduttoreId = produttore.Id
-                //    };
-                //    context.Prodotti.Add(prodotto);
-
-                //    context.Storici.Add(new DB.Storico
-                //    {
-                //        Id = 0,
-                //        Prodotto = prodotto,
-                //        DataInserimento = DateTime.Now,
-                //        Scopo = DB.Scopo.Prestito,
-                //        Stato = DB.Stato.Rigenerato
-                //    });
-                //    context.SaveChanges();
-                //}
-                //// se non conosco ne produttore ne prodotto
-                //else
-                //{
-                //    produttore = new DB.Produttore
-                //    {
-                //        Id = 0,
-                //        Nome = nomeProduttore
-                //    };
-
-                //    //salvo il nuovo prodotto e poi procedo alla creazione dello storico
-                //    prodotto = new DB.Prodotto
-                //    {
-                //        Id = 0,
-                //        CodiceArticolo = codiceArticolo,
-                //        Produttore = produttore
-                //    };
-
-                //    context.Storici.Add(new DB.Storico
-                //    {
-                //        Id = 0,
-                //        DataInserimento = DateTime.Now,
-                //        Scopo = DB.Scopo.InternoGiDi,
-                //        Stato = DB.Stato.Nuovo,
-                //        Prodotto = prodotto
-                //    });
-                //    context.SaveChanges();
-                //}
+            while (true)
+            {
+                switch (stage)
+                {
+                    case Stage.SelezioneProduttore:
+                        SelezioneProduttore();
+                        break;
+                    case Stage.MenuProdotti:
+                        MenuProdotto();
+                        break;
+                    default:
+                        break;
+                }
             }
-        
+        }
 
         #region produttore
         static void SelezioneProduttore()
         {
             #region display richiesta
             Console.Clear();
-            produttori = Magazzino.GetProduttori();
-            
+            _produttori = Magazzino.GetProduttori();
+
             Console.WriteLine("Digitare man per il manuale.");
             Console.WriteLine(hr);
             //Display costruttori su console
             int perRaw = 4;
             int raw = 0;
-            foreach (var item in produttori)
+            foreach (var item in _produttori)
             {
                 if (ricercaUltimoProduttore != null && item.Nome.ToUpper().Contains(ricercaUltimoProduttore))
                 {
@@ -144,8 +90,8 @@ namespace UiConsole
 
             if (int.TryParse(input, out number))
             {
-                produttore = ResearchProduttore(number);
-                if (produttore == null)
+                _produttore = ResearchProduttore(number);
+                if (_produttore == null)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Inserito un numero produttore non valido.");
@@ -153,7 +99,7 @@ namespace UiConsole
                     Console.ReadLine();
                     SelezioneProduttore();
                 }
-                else MenuProdotto();
+                else stage = Stage.MenuProdotti;
             }
             else
             {
@@ -167,7 +113,7 @@ namespace UiConsole
 
                 switch (comando)
                 {
-                    case "add":
+                    case "new":
                         InsertNewProduttore(argument);
                         break;
                     case "search":
@@ -177,12 +123,11 @@ namespace UiConsole
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.WriteLine("Comandi validi :");
-                        Console.WriteLine("add < nome_produttore > [ aggiungere un nuovo produttore ]");
+                        Console.WriteLine("new < nome_produttore > [ aggiungere un nuovo produttore ]");
                         Console.WriteLine("search < nome_produttore > [ ricerca produttori ]");
                         Console.WriteLine("exit [ chiusura applicazione ]");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
-                        SelezioneProduttore();
                         break;
                     case "exit":
                         Environment.Exit(0);
@@ -192,12 +137,11 @@ namespace UiConsole
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.WriteLine("Comando non valido.");
                         Console.WriteLine("Comandi validi :");
-                        Console.WriteLine("add < nome_produttore > [ aggiungere un nuovo produttore ]");
+                        Console.WriteLine("new < nome_produttore > [ aggiungere un nuovo produttore ]");
                         Console.WriteLine("search < nome_produttore > [ ricerca produttori ]");
                         Console.WriteLine("exit [ chiusura applicazione ]");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
-                        SelezioneProduttore();
                         break;
                 }
 
@@ -285,9 +229,9 @@ namespace UiConsole
             SelezioneProduttore();
 
         }
-        static public DBUser.IProduttore ResearchProduttore(string name)
+        static public DB.Produttore ResearchProduttore(string name)
         {
-            DBUser.IProduttore pr;
+            DB.Produttore pr;
             using (var context = new DB.MagazzinoContext())
             {
                 try
@@ -301,9 +245,9 @@ namespace UiConsole
             }
             return pr;
         }
-        static public DBUser.IProduttore ResearchProduttore(int id)
+        static public DB.Produttore ResearchProduttore(int id)
         {
-            DBUser.IProduttore pr;
+            DB.Produttore pr;
             using (var context = new DB.MagazzinoContext())
             {
                 try
@@ -319,23 +263,22 @@ namespace UiConsole
         }
         #endregion
 
-
         #region prodotto
         static void MenuProdotto()
         {
             #region display richiesta
             Console.Clear();
-            Console.WriteLine($"Using Produttore {produttore.Nome}");
+            Console.WriteLine($"Using Produttore {_produttore.Nome}");
             using (var context = new DB.MagazzinoContext())
             {
-                prodotti = context.Prodotti.Include(i => i.Storici).Where(i => i.ProduttoreId == produttore.Id).ToList();
+                _prodotti = context.Prodotti.Include(i => i.Storici).Where(i => i.ProduttoreId == _produttore.Id).ToList();
             }
             Console.WriteLine("Digitare man per il manuale.");
             Console.WriteLine(hr);
             //Display costruttori su console
             int perRaw = 3;
             int raw = 0;
-            foreach (var item in prodotti)
+            foreach (var item in _prodotti)
             {
                 if (ricercaUltimoProdotto != null && item.CodiceArticolo.ToUpper().Contains(ricercaUltimoProdotto))
                 {
@@ -387,7 +330,8 @@ namespace UiConsole
             switch (args[0])
             {
                 case "new":
-                    NewProdotto(args[1]);
+                    if(args.Count == 3) NewProdotto(args[1], Convert.ToInt16(args[2]));
+                    if (args.Count == 2) NewProdotto(args[1]);
                     break;
                 case "add":
                     AddProdotto(Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
@@ -399,7 +343,7 @@ namespace UiConsole
                     //SearchProdotto(args[1]);
                     break;
                 case "return":
-                    SelezioneProduttore();
+                    stage = Stage.SelezioneProduttore;
                     break;
                 case "man":
                     Console.Clear();
@@ -436,61 +380,40 @@ namespace UiConsole
         }
 
         #region dbCalls
-        public static void NewProdotto(string codice)
+        public static void NewProdotto(string codice, int pezzi=0)
         {
-            Magazzino.CreaNuovoProdotto(codice, produttore.Id);
-            MenuProdotto();
+            int[] raws = Magazzino.CreaNuovoProdotto(codice, _produttore.Id, pezzi);
+            Console.WriteLine(raws[0].ToString(), raws[1]);
+            //Console.WriteLine("\nProdotto Registrato");
+            //Console.Write("Inserire il numero pezzi da registrare : ");
+            //string input = Console.ReadLine();
+            //int numeroPezzi;
+            //int id = context.Prodotti.Single(c => c.CodiceArticolo == codice.Trim().ToUpper()).Id;
+            //if (int.TryParse(input, out numeroPezzi)) AggiungiProdotto(id, numeroPezzi);
         }
         public static void AddProdotto(int id, int numero)
         {
-            Magazzino.AggiungiProdotto(id, numero);
-            MenuProdotto();
+            int raws = Magazzino.AggiungiProdotto(id, numero);
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"Aggiornate {raws} righe sul database.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.ReadLine();
         }
         public static void RemoveProdotto(int id, int numero)
         {
-
-            using (var context = new DB.MagazzinoContext())
-            {
-                bool exist = context.Prodotti.Any(p => p.Id == id);
-                if (exist)
-                {
-                    List<DB.Storico> s = context.Storici.Where(pr => pr.ProdottoId == id).Take(numero).ToList();
-                    if (s != null) context.Storici.RemoveRange(s);
-
-                    int raws = context.SaveChanges();
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.Write($"Aggiornate {raws} righe sul database.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.ReadLine();
-                }
-                else
-                {
-
-                }
-            }
-            MenuProdotto();
+            int raws = Magazzino.RimuoviProdotto(id, numero);
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"Aggiornate {raws} righe sul database.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.ReadLine();
         }
-        static public DBUser.IProdotto ResearchProdotto(string codiceArticolo)
+        static public DB.Prodotto ResearchProdotto(string codiceArticolo)
         {
             return Magazzino.RicercaProdotto(codiceArticolo);
         }
         static public DB.Prodotto ResearchProdotto(int id)
         {
-            DB.Prodotto pr;
-            using (var context = new DB.MagazzinoContext())
-            {
-                try
-                {
-                    pr = context.Prodotti.Include(i => i.Produttore)
-                        .Single(n => n.Id == id);
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
-
-            }
-            return pr;
+            return Magazzino.RicercaProdotto(id);
         }
         #endregion
 

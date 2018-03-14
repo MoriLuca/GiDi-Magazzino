@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace DB
 {
-    public class MagazzinoContext : DbContext, DBUser.IMagazzinoContext
+    public class MagazzinoContext : DbContext
     {
         public DbSet<Prodotto> Prodotti { get; set; }
         public DbSet<Storico> Storici { get; set; }
-        public DbSet<IProduttore> Produttori { get; set; }
+        public DbSet<Produttore> Produttori { get; set; }
 
         public MagazzinoContext(DbContextOptions<MagazzinoContext> options) : base(options)
         {
@@ -28,16 +28,17 @@ namespace DB
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Prodotto>()
-                .HasIndex(i => new { i.CodiceArticolo, i.ProduttoreId} )
+                .HasIndex(i => new { i.CodiceArticolo, i.ProduttoreId })
                 .IsUnique();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server= localhost;Database=MagazzinoGiDi;User Id=sa; Password=0000;");
+            //optionsBuilder.UseSqlServer("Server= localhost;Database=MagazzinoGiDi;User Id=sa; Password=0000;");
+            optionsBuilder.UseMySql("Server=localhost;Database=Magazzino;Uid=root;Pwd=0000;");
         }
 
-        public void AggiungiProdotto(int id, int numero)
+        public int AggiungiProdotto(int id, int numero)
         {
             using (var context = new DB.MagazzinoContext())
             {
@@ -53,21 +54,18 @@ namespace DB
                             DataInserimento = DateTime.Now,
                         });
                     }
-                    int raws = context.SaveChanges();
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.Write($"Aggiornate {raws} righe sul database.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.ReadLine();
+                     return context.SaveChanges();
                 }
                 else
                 {
-
+                    return -1;
                 }
             }
         }
 
-        public void CreaNuovoProdotto(string codice, int produttoreId, decimal costoAquisto = 0, decimal prezzoVendita = 0)
+        public int[] CreaNuovoProdotto(string codice, int produttoreId, int pezzi = 0, decimal costoAquisto = 0, decimal prezzoVendita = 0)
         {
+            int[] ret = new int[2];
             using (var context = new DB.MagazzinoContext())
             {
                 bool exist = context.Prodotti.Any(p => p.CodiceArticolo == codice);
@@ -79,22 +77,19 @@ namespace DB
                         CodiceArticolo = codice.Trim().ToUpper()
                     };
                     context.Prodotti.Add(p);
-                    context.SaveChanges();
-                    Console.WriteLine("\nProdotto Registrato");
-                    Console.Write("Inserire il numero pezzi da registrare : ");
-                    string input = Console.ReadLine();
-                    int numeroPezzi;
-                    int id = context.Prodotti.Single(c => c.CodiceArticolo == codice.Trim().ToUpper()).Id;
-                    if (int.TryParse(input, out numeroPezzi)) AggiungiProdotto(id, numeroPezzi);
+                    ret[0] = context.SaveChanges();
+                    AggiungiProdotto(p.Id, pezzi);
+                    ret[1] = context.SaveChanges();
+                    return ret;
                 }
                 else
                 {
-                    Console.Write("Il codice inserito è gia registrato");
+                    return new int[] { -1, -1 };
                 }
             }
         }
 
-        public IProdotto RicercaProdotto(string codiceProdotto)
+        public Prodotto RicercaProdotto(string codiceProdotto)
         {
             DB.Prodotto pr;
             using (var context = new DB.MagazzinoContext())
@@ -112,8 +107,45 @@ namespace DB
             }
             return pr;
         }
+        public Prodotto RicercaProdotto(int id)
+        {
+            DB.Prodotto pr;
+            using (var context = new DB.MagazzinoContext())
+            {
+                try
+                {
+                    pr = context.Prodotti.Include(i => i.Produttore)
+                        .Single(n => n.Id == id);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
 
-        public List<IProduttore> GetProduttori()
+            }
+            return pr;
+        }
+
+        public int RimuoviProdotto(int id, int numero)
+        {
+            using (var context = new DB.MagazzinoContext())
+            {
+                bool exist = context.Prodotti.Any(p => p.Id == id);
+                if (exist)
+                {
+                    List<DB.Storico> s = context.Storici.Where(pr => pr.ProdottoId == id).Take(numero).ToList();
+                    if (s != null) context.Storici.RemoveRange(s);
+                    return context.SaveChanges();
+                }
+                else
+                {
+                    return -1;
+                }
+
+            }
+        }
+
+        public List<Produttore> GetProduttori()
         {
             return Produttori.ToList();
         }
