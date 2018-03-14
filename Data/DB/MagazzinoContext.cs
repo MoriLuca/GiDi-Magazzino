@@ -35,7 +35,7 @@ namespace DB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer("Server= localhost;Database=MagazzinoGiDi;User Id=sa; Password=0000;");
-            optionsBuilder.UseMySql("Server=localhost;Database=Magazzino;Uid=root;Pwd=0000;");
+            optionsBuilder.UseMySql("Server=localhost;Database=Magazzino;Uid=pi;Pwd=0000;");
         }
 
         public int AggiungiProdotto(int id, int numero)
