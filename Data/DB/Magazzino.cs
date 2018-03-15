@@ -128,7 +128,7 @@ namespace DB
             {
                 try
                 {
-                    pr = context.Prodotti.Include(i => i.Produttore)
+                    pr = context.Prodotti.Include(i => i.Produttore).Include(i=>i.Storici)
                         .Single(n => n.Id == id);
                 }
                 catch (Exception ex)

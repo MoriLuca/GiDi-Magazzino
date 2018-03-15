@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,11 +25,14 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<Data.MagazzinoContext>(options =>
-            {
-                var cnnStr = _config.GetValue<string>("ConnectionString:MagazzinoDev");
-                options.UseSqlServer(cnnStr);
-            });
+            services.AddDbContext<DB.MagazzinoContext>();
+            ////Da utilizzare per la release, per il debug utilizzo il costruttore senza parametri
+            ////perchè utilizzo la definizione all'interno del costruttore
+            //services.AddDbContext<DB.MagazzinoContext>(options =>
+            //{
+            //    var cnnStr = _config.GetValue<string>("ConnectionString:MagazzinoDev");
+            //    options.UseSqlServer(cnnStr);
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,12 @@
+﻿@model DB.Prodotto
+
+@{
+    ViewData["Title"] = "Magazzino GiDi";
+}
+
+@using (Html.BeginForm("NuovoProdotto", "Prodotti", null, FormMethod.Post))
+{
+    @Html.EditorForModel()
+}
+
+

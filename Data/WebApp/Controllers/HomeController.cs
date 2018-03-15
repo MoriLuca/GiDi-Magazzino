@@ -10,49 +10,36 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Data.MagazzinoContext _context;
+        private readonly DB.MagazzinoContext _context;
 
-        public HomeController(Data.MagazzinoContext context)
+        public HomeController(DB.MagazzinoContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string codice)
         {
-            return View();
-        }
-
-        public IActionResult GetItems()
-        {
-            return View(_context.Prodotti.ToList());
-        }
-
-        public IActionResult NewItem(Data.Prodotto_Base prodotto)
-        { 
-            if (Request.Method == "POST")
+            if (Request.Method == "GET" && codice != null)
             {
                 try
                 {
-                    if (prodotto.CodiceProdotto == null) throw new Exception("Codice prodotto cannot be Null.");
-                    prodotto.CodiceProdotto = prodotto.CodiceProdotto.Trim().ToUpper();
-                    _context.Prodotti_Base.Add(prodotto);
-                    _context.SaveChanges();
+                    codice = codice.Trim().ToUpper();
+                    List<DB.Prodotto> prodotti = _context.GetProdotti(codice);
+                    if (prodotti.Count > 0) return View(prodotti);
+                    //se il codice non è presente nell'archivio 
+                    else
+                    {
+
+                        ViewData["codiceNonTrovato"] = codice;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    ViewData["ex"] = ex.Message ;
+                    ViewData["ex"] = ex.Message;
                 }
-                
-            }
-            return View(prodotto);
-        }
 
-        [HttpPost]
-        public JsonResult CodiceProdotto(string txt)
-        {
-            //Searching records from list using LINQ query  
-            var list = _context.Prodotti_Base.Where(c => c.CodiceProdotto.Contains(txt)).ToList();
-            return Json(list);
+            }
+            return View();
         }
 
         public IActionResult Error()
