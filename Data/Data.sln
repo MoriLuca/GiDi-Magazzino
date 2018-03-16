@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DB", "DB\DB.csproj", "{B475
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiConsole", "UiConsole\UiConsole.csproj", "{560B6C4F-1F71-4ACB-8901-90085518552D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBUser", "DBUser\DBUser.csproj", "{C315AA50-665B-4E70-B55A-453F62C39061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBUser", "DBUser\DBUser.csproj", "{C315AA50-665B-4E70-B55A-453F62C39061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{2466AE83-946E-4132-BE99-7FEBA72EF18A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C315AA50-665B-4E70-B55A-453F62C39061}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C315AA50-665B-4E70-B55A-453F62C39061}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C315AA50-665B-4E70-B55A-453F62C39061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2466AE83-946E-4132-BE99-7FEBA72EF18A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2466AE83-946E-4132-BE99-7FEBA72EF18A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2466AE83-946E-4132-BE99-7FEBA72EF18A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2466AE83-946E-4132-BE99-7FEBA72EF18A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
