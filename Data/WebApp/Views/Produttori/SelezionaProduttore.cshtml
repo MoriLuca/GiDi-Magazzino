@@ -4,9 +4,25 @@
     ViewData["Title"] = "Magazzino GiDi";
 }
 
-@using (Html.BeginForm("NuovoProdotto", "Prodotti", null, FormMethod.Post))
+@*Nessuna richiesta, semplice lista dei fornitori*@
+@if (Model != null && (bool)ViewData["creazioneNuovoProdotto"] == false)
 {
-    @Html.EditorForModel()
+    @using (Html.BeginForm("NuovoProdotto", "Prodotti", null, FormMethod.Post))
+    {
+        @Html.DropDownList("DDlDemo", new SelectList(Model, "Id", "Nome"))
+    }
 }
+
+@if ((bool)ViewData["creazioneNuovoProdotto"] == true && ViewData["codiceNonTrovato"] != null)
+{
+    //richiesta creazione nuovo prodotto attiva :
+    @using (Html.BeginForm("NuovoProdotto", "Prodotti", null, FormMethod.Post))
+    {
+        @Html.DropDownList("idProduttore", new SelectList(Model, "Id", "Nome"))
+        <input type="text" name="codiceProdotto" value="@ViewData["codiceNonTrovato"]" hidden="hidden" />
+        <button type="submit">Registra prodotto per questo fornitore</button>
+    }
+}
+
 
 

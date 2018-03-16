@@ -1,0 +1,14 @@
+﻿@model DB.Produttore
+@{
+    ViewData["Title"] = "NewProduttore";
+}
+
+@using (Html.BeginForm("NewProduttore", "Produttori", FormMethod.Post))
+{
+    @Html.EditorForModel();
+    <button type="submit">Salva Nuovo Fornitore</button>
+}
+
+<script>
+    document.getElementById("Id").setAttribute('readonly', 'true');
+</script>

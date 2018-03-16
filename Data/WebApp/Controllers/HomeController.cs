@@ -29,8 +29,10 @@ namespace WebApp.Controllers
                     //se il codice non è presente nell'archivio 
                     else
                     {
-
+                        ViewData["creazioneNuovoProdotto"] = true;
                         ViewData["codiceNonTrovato"] = codice;
+                        return View(@"..\Produttori\SelezionaProduttore",
+                            _context.GetProduttori());
                     }
                 }
                 catch (Exception ex)

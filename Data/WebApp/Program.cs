@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace WebApp
 {
@@ -13,6 +14,8 @@ namespace WebApp
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseContentRoot(Directory.GetCurrentDirectory()+@"/magazzino2/publish")
+                .UseUrls("http://0.0.0.0:5000")
                 .Build();
     }
 }

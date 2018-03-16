@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
 {
+
     public class ProdottiController : Controller
     {
         private readonly DB.MagazzinoContext _context;
@@ -23,22 +24,32 @@ namespace WebApp.Controllers
                 if (operation) _context.AggiungiProdotto(id, number);
                 List<DB.Prodotto> p = new List<DB.Prodotto>();
                 p.Add(_context.RicercaProdotto(id));
-                return View("../Home/Index",p);
+                return View(@"..\Home\Index",p);
             }
             return View("Index");
         }
 
-        public IActionResult NuovoProdotto(int id, bool operation, int number)
+        public IActionResult NuovoProdotto(int idProduttore, string codiceProdotto)
         {
             if (Request.Method == "POST")
             {
-                if (!operation) _context.RimuoviProdotto(id, number);
-                if (operation) _context.AggiungiProdotto(id, number);
-                List<DB.Prodotto> p = new List<DB.Prodotto>();
-                p.Add(_context.RicercaProdotto(id));
-                return View("../Home/Index", p);
+                DB.Prodotto p = new DB.Prodotto()
+                {
+                    CodiceArticolo = codiceProdotto,
+                    ProduttoreId = idProduttore,
+
+                };
+                return View(@"..\Prodotti\NuovoProdotto", p);
             }
             return View();
         }
+        public IActionResult SalvaNuovoProdotto(DB.Prodotto prodotto)
+        {
+            _context.CreaNuovoProdotto(prodotto);
+            List<DB.Prodotto> p = new List<DB.Prodotto>();
+            p = _context.GetProdotti(prodotto.CodiceArticolo);
+            return View(@"..\Home\Index", p);
+        }
+
     }
 }

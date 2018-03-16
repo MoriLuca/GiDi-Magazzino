@@ -34,8 +34,9 @@ namespace DB
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server= localhost;Database=MagazzinoGiDi;User Id=sa; Password=0000;");
+            //optionsBuilder.UseSqlServer("Server= localhost;Database=MagazzinoGiDi;User Id=sa; Password=0000;");
             //optionsBuilder.UseMySql("Server=localhost;Database=Magazzino;Uid=pi;Pwd=0000;");
+            optionsBuilder.UseMySql("Server=192.168.1.7;Database=Magazzino;Uid=pi;Pwd=0000;");
         }
 
     }

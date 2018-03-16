@@ -4,9 +4,15 @@
     ViewData["Title"] = "Magazzino GiDi";
 }
 
-@using (Html.BeginForm("NuovoProdotto", "Prodotti", null, FormMethod.Post))
+@using (Html.BeginForm("SalvaNuovoProdotto", "Prodotti", FormMethod.Post))
 {
     @Html.EditorForModel()
+    <button type="submit">Salva prodotto</button>
 }
 
+<script>
+    document.getElementById("Id").setAttribute('readonly', 'true');
+    document.getElementById("ProduttoreId").setAttribute('readonly', 'true');
+    document.getElementById("CodiceArticolo").setAttribute('readonly', 'true');
+</script>
 

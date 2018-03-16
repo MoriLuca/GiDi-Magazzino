@@ -6,6 +6,12 @@ using System.Text;
 
 namespace DB
 {
+    public class SavingProduct : DB.Prodotto
+    {
+        public int NumeroPezzi { get; set; }
+        public bool SalvaPezzo { get; set; }
+    }
+
     public partial class MagazzinoContext 
     {
         #region Prodotto
@@ -86,6 +92,26 @@ namespace DB
                         ProduttoreId = produttoreId,
                         CodiceArticolo = codice.Trim().ToUpper()
                     };
+                    context.Prodotti.Add(p);
+                    ret[0] = context.SaveChanges();
+                    AggiungiProdotto(p.Id, pezzi);
+                    ret[1] = context.SaveChanges();
+                    return ret;
+                }
+                else
+                {
+                    return new int[] { -1, -1 };
+                }
+            }
+        }
+        public int[] CreaNuovoProdotto(Prodotto p, int pezzi = 0)
+        {
+            int[] ret = new int[2];
+            using (var context = new DB.MagazzinoContext())
+            {
+                bool exist = context.Prodotti.Any(pr => pr.CodiceArticolo == p.CodiceArticolo);
+                if (!exist)
+                {
                     context.Prodotti.Add(p);
                     ret[0] = context.SaveChanges();
                     AggiungiProdotto(p.Id, pezzi);
