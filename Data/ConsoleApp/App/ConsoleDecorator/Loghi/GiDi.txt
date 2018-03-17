@@ -1,0 +1,31 @@
+﻿m////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////m
+h                         `````                                                                                                                                                              h
+h                     .:+ooooooo+:-                                                                                                                                                          h
+h                   .+ooooooooooooo+-                                                                                                                                                        h
+h                  :ooooooooooooooooo+-                                                                                                                                                      h
+h                 /oooooooooooooooooooo+-                                                                                                                                                    h
+h                .+oooooooooooooooooooooo+-                                                .:+osyyyyyyso+:-`         `/oo:         -:/++oossssssso+/:-`                  `/oo:               h
+h              .  `:+oooooooooooooooooooo/.                                           `/sdMMMMMMMMMMMMMMMMMM+       .NMMMMd        NMMMMMMMMMMMMMMMMMMMNho:             .NMMMMd              h
+h             `o/.  `:+oooooooooooooooo/.  `                                        :hMMMMMMNdyso++++osyhmMm`       .MMMMMm        NMMMMyo+++//++oshmMMMMMMNy-          -MMMMMm              h
+h             `:+o/.  `:+oooooooooooo/.  .+o+`                                    :mMMMMMh/.              `.         .oys+`        NMMMM`            `-omMMMMMh.         .oys+`              h
+h               `:+o/.  `-+oooooooo/`  -+o+:` --`                               `yMMMMNo`                                          NMMMM`                -dMMMMM/                            h
+h                  -+o+-  `-+ooo+:`  -+o+:` -+oo:  `.                          `mMMMMh`                              `````         NMMMM`                  +MMMMM+       `````               h
+h                    -+o+-   -+:` `-+o+:` .+oo/`  -+o/.                        dMMMMh                                yMMMMo        NMMMM`                   +MMMMM.      yMMMMo              h
+h                      -+o+-    `:+o+:` ./oo/`  -+ooooo+-                     +MMMMN`                                yMMMMo        NMMMM`                    dMMMMs      yMMMMo              h
+h                  `-//:`./o+-`:+o+:` ./oo/`  -+ooooooooo+-                   mMMMMo                                 yMMMMo        NMMMM`                    +MMMMm      yMMMMo              h
+h             `.-:`  `/o+:`./ooo+:` ./oo/.  -+ooooooooooooo+:                `MMMMM:             ////////////:       yMMMMo        NMMMM`                    :MMMMN      yMMMMo              h
+h          `-/ooooo/.  `/o+:`./:` ./oo/.  .+ooooooooooooooooo/               `MMMMM:            `MMMMMMMMMMMMm       yMMMMo        NMMMM`                    /MMMMN      yMMMMo              h
+h         :+ooooooooo/.  `/o+:` `/oo/.  `/oooooooooooooooooooo-               NMMMM+             yyyyyyyyMMMMm       yMMMMo        NMMMM`                    sMMMMh      yMMMMo              h
+h        /ooooooooooooo/.  `/o+:`./oo:`  ./ooooooooooooooooooo/               hMMMMd                    `MMMMm       yMMMMo        NMMMM`                   `NMMMM/      yMMMMo              h
+h       :oooooooooooooooo/.  `/o+:`./oo/`  ./ooooooooooooooooo/               -MMMMM+                   `MMMMm       yMMMMo        NMMMM`                   yMMMMd       yMMMMo              h
+h       +oooooooooooooooooo/.  `/oo:``:oo/.  `/ooooooooooooooo.                oMMMMM/                  `MMMMm       yMMMMo        NMMMM`                  sMMMMN.       yMMMMo              h
+h       /oooooooooooooooooooo+.  ./oo:``:+o/.  `:+oooooooooo+.                  sMMMMMy.                `MMMMm       yMMMMo        NMMMM`                :mMMMMm.        yMMMMo              h
+h       -ooooooooooooooooooo+-  `:+o+-   `:+o/.  `:+oooooo+-`                    /NMMMMMy:`             `MMMMm       yMMMMo        NMMMM`             .omMMMMMs`         yMMMMo              h
+h        -+ooooooooooooooo+-  `-+o+-       `-+o/.  `-++/:.                        `oNMMMMMMds+:-....--:+sMMMMm       yMMMMo        NMMMM:-......-:+shNMMMMMNo`           yMMMMo              h
+h          -+ooooooooooo+-   -+o+-            -+o/.                                  :smMMMMMMMMMMMMMMMMMMMMMd       yMMMMo        NMMMMMMMMMMMMMMMMMMMNho-              yMMMMo              h
+h            ./ooooooo+-   -+o+-                -++/.                                   `:+shdmNNNNNmmdhyo/:`        ohhhh/        yhddmmmmmmmmddhyo+:.                  ohhhh/              h
+h              .:ooo+-`  -+o+-                                                                                                                                                               h
+h                `::`  -+o+-                                                                                                                                                                 h
+h                     .//- .::::::::::::::::::::::::::::::::::-                                                                                                                              h
+h                                                                                                                                                                                            h
+m////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////m

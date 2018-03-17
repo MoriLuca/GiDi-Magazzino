@@ -74,8 +74,7 @@ namespace DB
         /// <param name="costoAquisto"></param>
         /// <param name="prezzoVendita"></param>
         /// <returns></returns>
-        [Obsolete("Method is deprecated, please pass a Prodotto Object Inst" +
-            "ead")]
+        [Obsolete("Method is deprecated, please pass a Prodotto Object Instead")]
         public int[] CreaNuovoProdotto(string codice, int produttoreId, int pezzi = 0, decimal costoAquisto = 0, decimal prezzoVendita = 0)
         {
             int[] ret = new int[2];

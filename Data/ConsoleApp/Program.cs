@@ -16,7 +16,10 @@ namespace ConsoleApp
                 //var cnnStr = "Server=192.168.1.7;Database=_magazzino;Uid=pi;Pwd=0000;";
                 options.UseSqlServer(cnnStr);
             });
+            services.AddTransient<App.ICommandParser, App.CommandParser>();
             services.AddTransient<App.IRunner,App.Runner>();
+            services.AddTransient<App.INodeSelector, App.NodeSelector>();
+            services.AddTransient<App.IConsoleDecorator, App.ConsoleDecorator>();
             var provider = services.BuildServiceProvider();
 
             provider.GetService<App.IRunner>().Start();
