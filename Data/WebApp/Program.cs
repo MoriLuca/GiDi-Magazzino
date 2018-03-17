@@ -14,7 +14,8 @@ namespace WebApp
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseContentRoot(Directory.GetCurrentDirectory()+@"/magazzino2/publish")
+                //.UseContentRoot(Directory.GetCurrentDirectory()+@"/magazzino2/publish")
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseUrls("http://0.0.0.0:5000")
                 .Build();
     }
