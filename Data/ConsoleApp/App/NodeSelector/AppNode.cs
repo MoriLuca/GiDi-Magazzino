@@ -25,6 +25,7 @@ namespace ConsoleApp.App
 
         public AppNodes MainMenu()
         {
+            Console.Clear();
             _consoleDecorator.DrawLogo("GiDi.txt");
             Console.WriteLine(
                 "Opzioni Menù :" + Environment.NewLine +
@@ -36,7 +37,7 @@ namespace ConsoleApp.App
                 "Esempio Utilizzo :" + Environment.NewLine +
                 "Per eseguire un comando, inserire il numero corrispondente." + Environment.NewLine +
                 "Altrimenti è possibile scrivere il nome del sottomenù." + Environment.NewLine +
-                "Es : 4 || produttori -> porteranno al sottomenu Produttori." + Environment.NewLine);
+                "Es : 3 || produttori -> porteranno al sottomenu Produttori." + Environment.NewLine);
 
             _consoleDecorator.AppPlaceholder("Gi.Di.Magazzino");
             _commandParser.InputString = Console.ReadLine().Trim().ToLower();
@@ -47,10 +48,10 @@ namespace ConsoleApp.App
                     return AppNodes.GestioneMagazzino;
                 case "2":
                 case "prodotti":
-                    return AppNodes.ListaProduttori;
+                    return AppNodes.ListaProdotti;
                 case "3":
                 case "produttori":
-                    return AppNodes.ListaProdotti;
+                    return AppNodes.ListaProduttori;
                 case "0":
                 case "exit":
                 case "quit":
