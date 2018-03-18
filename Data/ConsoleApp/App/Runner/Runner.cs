@@ -5,7 +5,7 @@ namespace ConsoleApp.App
     class Runner : IRunner
     {
         #region services
-        private readonly DB.MagazzinoContext _magazzino;
+        
         private readonly App.INodeSelector _nodeSelector;
         private readonly App.IConsoleDecorator _consoleDecorator;
         #endregion
@@ -14,11 +14,9 @@ namespace ConsoleApp.App
         #endregion
 
 
-        public Runner(DB.MagazzinoContext magazzino,
-                      INodeSelector nodeSelector,
+        public Runner(INodeSelector nodeSelector,
                       IConsoleDecorator consoleDecorator )
         {
-            _magazzino = magazzino;
             _nodeSelector = nodeSelector;
             _consoleDecorator = consoleDecorator;
         }
@@ -33,20 +31,15 @@ namespace ConsoleApp.App
             Console.WindowWidth = 200;
             Console.WindowHeight = 50;
             Console.Title = $"Magazzino Gi.Di. Automazione V[{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}]";
-            _consoleDecorator.DrawLogo("GiDi.txt");
             while (true)
             {
-                switch (_nodeSelector.SelectNode())
+                switch (_nodeSelector.MainMenu())
                 {
-                    case AppNodes.MainMenu:
-                        Console.Clear();
-                        _consoleDecorator.DrawLogo("GiDi.txt");
-                        break;
                     case AppNodes.GestioneMagazzino:
                         Console.WriteLine("gestione magazzino");
                         break;
                     case AppNodes.ListaProduttori:
-                        Console.WriteLine("Lista produttori");
+                        new App.SubMenu.MenuProduttori().Start();
                         break;
                     case AppNodes.ListaProdotti:
                         Console.WriteLine("lista prodotti");

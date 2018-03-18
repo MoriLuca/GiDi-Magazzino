@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Linq;
 
 namespace ConsoleApp.App
 {
     public enum AppNodes
     {
         InputError,
-        MainMenu,
         GestioneMagazzino,
         ListaProduttori,
         ListaProdotti,
@@ -16,19 +16,21 @@ namespace ConsoleApp.App
         private readonly ICommandParser _commandParser;
         private readonly IConsoleDecorator _consoleDecorator;
 
-        public NodeSelector(ICommandParser commandParser, IConsoleDecorator consoleDecorator)
+        public NodeSelector(ICommandParser commandParser,
+            IConsoleDecorator consoleDecorator)
         {
             _commandParser = commandParser;
             _consoleDecorator = consoleDecorator;
         }
-        public AppNodes SelectNode()
+
+        public AppNodes MainMenu()
         {
+            _consoleDecorator.DrawLogo("GiDi.txt");
             Console.WriteLine(
                 "Opzioni Menù :" + Environment.NewLine +
-                "1) Menu" + Environment.NewLine +
-                "2) Magazzino" + Environment.NewLine +
-                "3) Prodotti" + Environment.NewLine +
-                "4) Produttori" + Environment.NewLine +
+                "1) Magazzino" + Environment.NewLine +
+                "2) Prodotti" + Environment.NewLine +
+                "3) Produttori" + Environment.NewLine +
                 "0) Exit" + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Esempio Utilizzo :" + Environment.NewLine +
@@ -41,17 +43,15 @@ namespace ConsoleApp.App
             switch (_commandParser.CommandPack.Command)
             {
                 case "1":
-                case "menu":
-                    return AppNodes.MainMenu;
-                case "2":
                 case "magazzino":
                     return AppNodes.GestioneMagazzino;
+                case "2":
+                case "prodotti":
+                    return AppNodes.ListaProduttori;
                 case "3":
                 case "produttori":
-                    return AppNodes.ListaProduttori;
-                case "4":
-                case "prodotti":
                     return AppNodes.ListaProdotti;
+                case "0":
                 case "exit":
                 case "quit":
                 case "end":
@@ -60,11 +60,12 @@ namespace ConsoleApp.App
                     return AppNodes.InputError;
             }
         }
+
     }
 
     public interface INodeSelector
     {
-        AppNodes SelectNode();
+        AppNodes MainMenu();
     }
 
 }
