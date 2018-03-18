@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
@@ -14,6 +15,19 @@ namespace WebApp.Controllers
         public ProdottiController(DB.MagazzinoContext context)
         {
             _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            List<DB.Prodotto> p = _context.GetProdotti();
+            return View(_context.GetProdotti());
+        }
+
+        public IActionResult Search(string name)
+        {
+            List<DB.Prodotto> pr = _context.GetProdotti(name);
+            if (pr.Count == 1) return View("SearchFound", pr[0]);
+            else return View(pr);
         }
 
         public IActionResult ProductOperation(int id, bool operation, int number)
@@ -29,15 +43,13 @@ namespace WebApp.Controllers
             return View("Index");
         }
 
-        public IActionResult NuovoProdotto(int idProduttore, string codiceProdotto)
+        public IActionResult NuovoProdotto(int idProduttore)
         {
             if (Request.Method == "POST")
             {
                 DB.Prodotto p = new DB.Prodotto()
                 {
-                    CodiceArticolo = codiceProdotto,
                     ProduttoreId = idProduttore,
-
                 };
                 return View(@"..\Prodotti\NuovoProdotto", p);
             }

@@ -1,0 +1,33 @@
+﻿@model List<DB.Produttore>
+@{
+    ViewData["Title"] = "Prodotti";
+}
+<div class="clearfix">
+    <h2 class="d-inline">Elenco Produttori</h2>
+    <a class="float-right m-2" href="@Url.Action("NewProduttore","Produttori")">
+        <button type="button" class="btn btn-success">Nuovo Produttore</button>
+    </a>
+</div>
+
+
+<div class="clearfix">
+    <ul class="list-group">
+        @if (Model != null)
+        {
+            @foreach (var pr in Model)
+            {
+                <a class="mb-1" href="@Url.Action("DisplayProduttore", "Produttori", new { id = pr.Id})">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @pr.Nome
+                        <span class="badge badge-primary badge-pill">
+                            @((pr.Prodotti == null) ? 0 : pr.Prodotti.Count)
+                        </span>
+                    </li>
+
+                </a>
+            }
+        }
+    </ul>
+</div>
+
+

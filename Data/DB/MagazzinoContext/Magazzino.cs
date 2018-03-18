@@ -182,11 +182,11 @@ namespace DB
         /// <returns></returns>
         public List<Prodotto> GetProdotti()
         {
-            return Prodotti.Include(i => i.Storici).ToList();
+            return Prodotti.Include(i => i.Storici).Include(i=> i.Produttore).ToList();
         }
         public List<Prodotto> GetProdotti(string codice)
         {
-            return Prodotti.Include(i => i.Storici).Include(i => i.Produttore).Where(i => i.CodiceArticolo.Contains(codice)).ToList();
+            return Prodotti.Include(i => i.Storici).Include(i => i.Produttore).Where(i => i.CodiceArticolo.Contains(codice) || i.Nome.Contains(codice) ).ToList();
         }
         #endregion
 
@@ -209,7 +209,6 @@ namespace DB
         }
         public int AggiungiNuovoProduttore(Produttore pr)
         {
-
             bool exist = Produttori.Any(p => p.Nome.Trim() == pr.Nome.ToUpper().Trim());
             if (!exist)
             {

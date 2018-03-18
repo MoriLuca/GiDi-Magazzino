@@ -1,28 +1,22 @@
 ﻿@model List<DB.Produttore>
 
 @{
-    ViewData["Title"] = "Magazzino GiDi";
+    ViewData["Title"] = "Selezione Produttore";
 }
 
-@*Nessuna richiesta, semplice lista dei fornitori*@
-@if (Model != null && (bool)ViewData["creazioneNuovoProdotto"] == false)
-{
-    @using (Html.BeginForm("NuovoProdotto", "Prodotti", null, FormMethod.Post))
+<h2>Selezionare produttore articolo</h2>
+
+<div class="clearfix mt-4">
+    @foreach (var item in Model)
     {
-        @Html.DropDownList("DDlDemo", new SelectList(Model, "Id", "Nome"))
+        <form asp-action="NuovoProdotto" asp-controller="Prodotti" method="post" class="float-left m-1">
+            <input type="number" name="idProduttore" value="@item.Id" hidden="hidden" />
+            <button type="submit" class="btn btn-outline-secondary">
+                <img src="@item.LogoUrl" alt="Logo" style="max-height:50px;" />
+                <p class="mb-0 mt-1">@item.Nome</p>
+            </button>
+        </form>
     }
-}
-
-@if ((bool)ViewData["creazioneNuovoProdotto"] == true && ViewData["codiceNonTrovato"] != null)
-{
-    //richiesta creazione nuovo prodotto attiva :
-    @using (Html.BeginForm("NuovoProdotto", "Prodotti", null, FormMethod.Post))
-    {
-        @Html.DropDownList("idProduttore", new SelectList(Model, "Id", "Nome"))
-        <input type="text" name="codiceProdotto" value="@ViewData["codiceNonTrovato"]" hidden="hidden" />
-        <button type="submit">Registra prodotto per questo fornitore</button>
-    }
-}
-
+</div>
 
 

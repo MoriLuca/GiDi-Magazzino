@@ -13,6 +13,7 @@ namespace DB
         public Produttore Produttore { get; set; }
         public string Nome { get; set; }
         public string Note { get; set; }
+        public string ImgUrl { get; set; }
         public Decimal PrezzoAcquisto { get; set; }
         public Decimal PrezzoVendita { get; set; }
         public List<Storico> Storici { get; set; }

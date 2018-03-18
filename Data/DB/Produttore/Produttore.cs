@@ -8,6 +8,7 @@ namespace DB
         public string Nome { get; set; }
         public string NumeroTelefono { get; set; }
         public string Email { get; set; }
+        public string LogoUrl { get; set; }
         public string Note { get; set; }
         public List<Prodotto> Prodotti { get; set; }
     }

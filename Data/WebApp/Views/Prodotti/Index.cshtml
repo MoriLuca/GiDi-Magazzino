@@ -1,0 +1,44 @@
+﻿@model List<DB.Prodotto>
+@{
+    ViewData["Title"] = "Prodotti";
+}
+
+<div class="clearfix">
+    <h2 class="d-inline">Elenco Prodotti</h2>
+    <a class="float-right m-2" href="@Url.Action("SelezionaProduttore","Produttori")">
+        <button type="button" class="btn btn-success">Nuovo Prodotto</button>
+    </a>
+</div>
+
+@if (Model != null)
+{
+    <div class="clearfix">
+        @foreach (var pr in Model)
+        {
+            <div class="card float-left m-1" id="card" m-1" style="width: 18rem;">
+                <div class="card-header">
+                    @pr.Nome
+                    <span class="badge badge-primary badge-pill float-right">
+                        @((pr.Storici == null) ? 0 : pr.Storici.Count)
+                    </span>
+                </div>
+                <div style="text-align:center;">
+                    <img class="card-img-top" src="@pr.ImgUrl" alt="Card image cap" style="max-width:70%;">
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">@pr.Produttore.Nome</h5>
+
+                    @if (pr.Note == null)
+                    {<p class="card-text"> No note ... </p>}
+                    else if (@pr.Note.Length < 30)
+                    { <p class="card-text"> @(pr.Note + " ...") </p>}
+                else
+                { <p class="card-text"> @pr.Note.Substring(30)+"..." </p>}
+
+                    <a href="@Url.Action("Search", "Prodotti", new { name = pr.CodiceArticolo })" class="btn btn-primary">Dettaglio</a>
+                </div>
+            </div>
+        }
+    </div>
+}

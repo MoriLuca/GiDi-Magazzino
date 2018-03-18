@@ -1,0 +1,39 @@
+﻿@model DB.Prodotto
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Resoconto Prodotto @Model.Nome</h2>
+
+<table>
+    <tr>
+        <td>
+            @Html.EditorForModel()
+            <label>Quantità pezzi</label><br />
+            <input type="text" name="name" value="@Model.Storici.Count" readonly /><br />
+            <label>Aggiungi n° pezzi</label><br />
+            <form asp-action="ProductOperation" asp-controller="Prodotti" method="post">
+                <input type="text" name="id" value=@Model.Id ) hidden="hidden" />
+                <input type="text" name="operation" value="true" hidden="hidden" />
+                <input type="number" name="number" value="0" min="0" max="999" />
+                <button style="max-height:50px;" class="btn btn-primary" type="submit" value="Get">+</button>
+            </form>
+            <label>Rimuovi n° pezzi</label><br />
+            <form asp-action="ProductOperation" asp-controller="Prodotti" method="post">
+                <input type="text" name="id" value=@Model.Id ) hidden="hidden" />
+                <input type="text" name="operation" value="false" hidden="hidden" />
+                <input type="number" name="number" value="0" min="0" max="999" />
+                <button class="btn btn-primary" type="submit" value="Get">-</button>
+            </form>
+        </td>
+        <td><img class="pl-xl-5 ml-xl-5" src="@Model.ImgUrl" alt="Card image cap"></td>
+    </tr>
+</table>
+
+<button type="button" class="btn btn-primary mt-3">Modifica Prodotto</button>
+
+<script>
+    document.getElementById("Id").setAttribute('readonly', 'true');
+    document.getElementById("ProduttoreId").setAttribute('readonly', 'true');
+    document.getElementById("CodiceArticolo").setAttribute('readonly', 'true');
+</script>

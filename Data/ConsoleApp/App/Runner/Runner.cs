@@ -5,7 +5,6 @@ namespace ConsoleApp.App
     class Runner : IRunner
     {
         #region services
-        
         private readonly App.INodeSelector _nodeSelector;
         private readonly App.IConsoleDecorator _consoleDecorator;
         #endregion
@@ -39,7 +38,6 @@ namespace ConsoleApp.App
                         Console.WriteLine("gestione magazzino");
                         break;
                     case AppNodes.ListaProduttori:
-                        new App.SubMenu.MenuProduttori().Start();
                         break;
                     case AppNodes.ListaProdotti:
                         Console.WriteLine("lista prodotti");

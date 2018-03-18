@@ -1,0 +1,22 @@
+﻿@model DB.Produttore
+@{
+    ViewData["Title"] = "DisplayProduttore";
+}
+
+<h2 class="mb-2">Riepilogo Produttore</h2>
+
+<table>
+    <tr>
+        <td>
+            <form asp-controller="Produttori" asp-action="Modifiche" method="post" class="prodottoDisplay">
+                @Html.EditorForModel()
+                <button type="submit" class="btn btn-primary mt-3">Salva Modifiche</button>
+            </form>
+        </td>
+        <td><img class="pl-5" src="@Model.LogoUrl" alt="Logo" style="max-width:80%"></td>
+    </tr>
+</table>
+
+<script>
+    document.getElementById("Id").setAttribute('readonly', 'true');
+</script>

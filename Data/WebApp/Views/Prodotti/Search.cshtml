@@ -1,0 +1,36 @@
+﻿@model List<DB.Prodotto>
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Ricerca Prodotti</h2>
+
+<div class="container clearfix">
+    @foreach (var product in Model)
+    {
+        <div class="card float-left m-1" id="card" m-1" style="width: 18rem;">
+            <div class="card-header">
+                @product.Nome
+                <span class="badge badge-primary badge-pill float-right">
+                    @((product.Storici == null) ? 0 : product.Storici.Count)
+                </span>
+            </div>
+            <div style="text-align:center;">
+                <img class="card-img-top" src="@product.ImgUrl" alt="Card image cap" style="max-width:70%;">
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">@product.Produttore.Nome</h5>
+
+                @if (product.Note == null)
+                {<p class="card-text"> No note ... </p>}
+                else if (@product.Note.Length < 30)
+                { <p class="card-text"> @(product.Note + " ...") </p>}
+            else
+            { <p class="card-text"> @product.Note.Substring(30)+"..." </p>}
+
+                <a href="@Url.Action("Search", "Prodotti", new { name = product.CodiceArticolo })" class="btn btn-primary">Dettaglio</a>
+            </div>
+        </div>
+    }
+</div>
