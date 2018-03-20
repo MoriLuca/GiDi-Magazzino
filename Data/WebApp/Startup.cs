@@ -32,7 +32,8 @@ namespace WebApp
             services.AddDbContext<DB.MagazzinoContext>(options =>
             {
                 var cnnStr = _config.GetValue<string>("ConnectionString:MagazzinoDev");
-                options.UseSqlServer(cnnStr);
+                //options.UseSqlServer(cnnStr);
+                options.UseMySql(cnnStr);
             });
         }
 
